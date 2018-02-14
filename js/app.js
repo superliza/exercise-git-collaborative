@@ -1,15 +1,16 @@
 function readFile() {
     if (this.files && this.files[0]) {
-      var newImages = new FileReader();
-      newImages.addEventListener("load", paintImage);
-      newImages.readAsDataURL(this.files[0]);
+        var newImages = new FileReader();
+        newImages.addEventListener("load", paintImage);
+        newImages.readAsDataURL(this.files[0]);
     }
-  }
-  function paintImage(e) {
+}
+
+function paintImage(e) {
     var realTimeImage = document.getElementById("real-time-image");
     realTimeImage.src = e.target.result;
     // console.log(e.target);
-  }
+}
 
   // Obteniendo los elemtos
 var realTimeComment = document.getElementById("real-time-comment");
@@ -21,6 +22,7 @@ var textColor = document.getElementById("text-color");
 var backgroundColor = document.getElementById("background-color");
 var commentedPost = document.getElementById("comment-posted");
 var selectImage = document.getElementById("select-image");
+
 // Asignando eventos a los elementos
 area.addEventListener("keyup", getTextPreview);
 sendComment.addEventListener("click", printComments);
@@ -41,6 +43,7 @@ for (var i = 0; i < sizeText.length; i++) {
     realTimeComment.innerText = enteredText;
     return realTimeComment;
   }
+
   // Para cambiar los tamaños de los comentarios
   function changeSizeText() {
     if (this.value === "large") {
@@ -51,3 +54,16 @@ for (var i = 0; i < sizeText.length; i++) {
       realTimeComment.style.fontSize = "20px";
     }
   }
+
+// pintar comentio en publicaciones
+function printComments() {
+    var text = getTextPreview();
+    var publishComment = text.parentNode.cloneNode(true);
+    console.log(text.parentNode);
+    commentedPost.insertBefore(publishComment, commentedPost.firstChild);
+    area.value = " ";
+    text.removeAttribute("style");
+    text.innerText = " ";
+    // document.getElementById("real-time-image").removeAttribute("src");
+}
+
